@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -15,7 +16,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="navbar sticky top-0 bg-base-100 border-b-2 shadow-lg">
+        <div className="navbar z-20 sticky top-0 bg-base-100 border-b-2 shadow-lg md:px-36">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -49,7 +50,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a href='/' className="btn">Get started</a>
+                <Link to='/login' className="btn">Get started</Link>
             </div>
         </div>
 
