@@ -11,13 +11,13 @@ const Navbar = () => {
 
     const menuItems = <>
         <li>
-            <a href='/'>Home</a>
+            <Link to='/'>Home</Link>
         </li>
         <li>
-            <a href='/'>Services</a>
+            <Link to='/services'>Services</Link>
         </li>
         <li>
-            <a href='/'>About</a>
+            <Link to='/'>About</Link>
         </li>
     </>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <a href='/' className="btn btn-ghost normal-case text-xl">Pathshala</a>
+                <Link to='/' className="btn btn-ghost normal-case text-xl">Pathshala</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">

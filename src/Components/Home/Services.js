@@ -6,7 +6,7 @@ const Services = () => {
     const [services, setServices] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/courses')
+        fetch('https://pathshala-server.herokuapp.com/courses')
             .then(res => res.json())
             .then(result => setServices(result))
     }, [])
@@ -19,7 +19,6 @@ const Services = () => {
                     services.map((s, index) => <Service key={index} s={s}></Service>)
                 }
             </div>
-            <button className='btn block mx-auto mt-4 btn-outline btn-primary'>Check All Courses</button>
         </div>
     );
 };

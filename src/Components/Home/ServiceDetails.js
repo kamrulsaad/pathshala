@@ -8,7 +8,7 @@ const ServiceDetails = () => {
     const [course, setCourse] = useState({})
 
     useEffect(() => {
-        fetch(`http://localhost:5000/courses/${id}`)
+        fetch(`https://pathshala-server.herokuapp.com/courses/${id}`)
             .then(res => res.json())
             .then(result => setCourse(result))
     }, [id])

@@ -105,7 +105,7 @@ const Register = () => {
                                             {emailLoading && <SmallLoading></SmallLoading>}
                                         </button>
                                     </div>
-                                    <div class="divider">OR</div>
+                                    <div className="divider">OR</div>
                                     <div onClick={() => signInWithGoogle()} className="flex justify-center w-full mb-3">
                                         <div
                                             className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
