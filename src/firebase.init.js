@@ -2,13 +2,14 @@ import { initializeApp } from "firebase/app";
 import {getAuth} from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_apiKey,
-  authDomain: process.env.REACT_APP_authDomain,
-  projectId: process.env.REACT_APP_projectId,
-  storageBucket: process.env.REACT_APP_storageBucket,
-  messagingSenderId: process.env.REACT_APP_messagingSenderId,
-  appId: process.env.REACT_APP_appId,
+  apiKey: "AIzaSyAj4__pHqgtcvVi4RFaAiCIumpfpKMbs84",
+  authDomain: "pathshala-edtech.firebaseapp.com",
+  projectId: "pathshala-edtech",
+  storageBucket: "pathshala-edtech.appspot.com",
+  messagingSenderId: "28648508141",
+  appId: "1:28648508141:web:0b97b9a99544902fb59ae4"
 };
+
 
 const app = initializeApp(firebaseConfig);
 

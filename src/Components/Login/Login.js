@@ -1,11 +1,32 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
+import SmallLoading from '../Shared/SmallLoading';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
+    const [email, setEmail] = useState('')
+
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location?.state?.from?.pathname || '/'
+
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithEmail, emailuser, emailLoading, emailError] = useSignInWithEmailAndPassword(auth)
+
     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e.target.email.value, e.target.password.value);
+        e.preventDefault()
+        signInWithEmail(email, e.target.password.value);
+    }
+
+    useEffect(() => {
+        if (user || emailuser) navigate(from, { replace: true })
+    }, [user, from, navigate, emailuser])
+
+    if (error || emailError) {
+        toast.error(error?.message || emailError?.message)
     }
 
     return (
@@ -54,12 +75,12 @@ const Login = () => {
                                             Email
                                         </label>
                                         <input
-                                            placeholder="John"
+                                            placeholder="john.doe@example.org"
                                             required
                                             type="email"
                                             className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline"
                                             id="firstName"
-                                            name="Email"
+                                            onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </div>
                                     <div className="mb-1 sm:mb-2">
@@ -70,7 +91,6 @@ const Login = () => {
                                             Password
                                         </label>
                                         <input
-                                            placeholder="john.doe@example.org"
                                             required
                                             type="password"
                                             className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline"
@@ -84,30 +104,33 @@ const Login = () => {
                                             className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
                                         >
                                             Login
+                                            {emailLoading && <SmallLoading></SmallLoading>}
                                         </button>
                                     </div>
                                     <div class="divider">OR</div>
-                                    <div className="flex justify-center w-full mb-3">
-                                        <a
-                                            href="/"
+                                    <div onClick={() => signInWithGoogle()} className="flex cursor-pointer justify-center w-full mb-3">
+                                        <div
                                             className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
                                         >
                                             <div className="flex items-center">
                                                 <div className="mr-3 font-semibold text-white">
                                                     Login with Google
                                                 </div>
-                                                <svg
-                                                    width="24px"
-                                                    height="24px"
-                                                    viewBox="-2 -2 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    preserveAspectRatio="xMinYMin"
-                                                    className="jam jam-google"
-                                                >
-                                                    <path d="M4.376 8.068A5.944 5.944 0 0 0 4.056 10c0 .734.132 1.437.376 2.086a5.946 5.946 0 0 0 8.57 3.045h.001a5.96 5.96 0 0 0 2.564-3.043H10.22V8.132h9.605a10.019 10.019 0 0 1-.044 3.956 9.998 9.998 0 0 1-3.52 5.71A9.958 9.958 0 0 1 10 20 9.998 9.998 0 0 1 1.118 5.401 9.998 9.998 0 0 1 10 0c2.426 0 4.651.864 6.383 2.302l-3.24 2.652a5.948 5.948 0 0 0-8.767 3.114z" />
-                                                </svg>
+                                                {
+                                                    loading ? <SmallLoading></SmallLoading> :
+                                                        <svg
+                                                            width="24px"
+                                                            height="24px"
+                                                            viewBox="-2 -2 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            preserveAspectRatio="xMinYMin"
+                                                            className="jam jam-google"
+                                                        >
+                                                            <path d="M4.376 8.068A5.944 5.944 0 0 0 4.056 10c0 .734.132 1.437.376 2.086a5.946 5.946 0 0 0 8.57 3.045h.001a5.96 5.96 0 0 0 2.564-3.043H10.22V8.132h9.605a10.019 10.019 0 0 1-.044 3.956 9.998 9.998 0 0 1-3.52 5.71A9.958 9.958 0 0 1 10 20 9.998 9.998 0 0 1 1.118 5.401 9.998 9.998 0 0 1 10 0c2.426 0 4.651.864 6.383 2.302l-3.24 2.652a5.948 5.948 0 0 0-8.767 3.114z" />
+                                                        </svg>
+                                                }
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
